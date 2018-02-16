@@ -103,11 +103,11 @@ namespace CSFCloud.WebSocket.Socket {
                 Logger.Info($"Requesting resource: {requestHeader.resource}");
 
                 string ip1 = tcpclient.Client.RemoteEndPoint.ToString();
-                string ip2 = tcpclient.Client.LocalEndPoint.ToString();
 
                 string[] ip_parts = ip1.Split(".");
 
-                Logger.Info($"IP: {ip1} {ip2}");
+                Logger.Info($"IP: {ip1}");
+                Logger.Debug($"Recieved header: {str}");
 
                 if (ip_parts[0] != "172" && ip_parts[0] != "127") {
                     ResponseHeader respheader = new ResponseHeader {
@@ -124,6 +124,15 @@ namespace CSFCloud.WebSocket.Socket {
                     respheader.parameters["Upgrade"] = "websocket";
                     respheader.parameters["Sec-WebSocket-Accept"] = GenerateSecWebSocketKey(requestHeader.parameters["Sec-WebSocket-Key"]);
                     respheader.parameters["x-session-id"] = session;
+                    if (requestHeader.parameters.ContainsKey("Sec-WebSocket-Protocol")) {
+                        string[] options = requestHeader.parameters["Sec-WebSocket-Protocol"].Split(",");
+                        foreach (string option_raw in options) {
+                            string option = option_raw.Trim();
+                            if (option.Contains("csf-socket-")) {
+                                respheader.parameters["Sec-WebSocket-Protocol"] = option;
+                            }
+                        }
+                    }
                     await Send(respheader);
 
                     await SendHello();
