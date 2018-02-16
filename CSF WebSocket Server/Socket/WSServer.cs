@@ -1,13 +1,13 @@
-﻿using CSFWebSocket.Loopers;
-using CSFWebSocket.Util;
-using CSFWebSocket.Socket.Packets;
+﻿using CSFCloud.WebSocket.Loopers;
+using CSFCloud.WebSocket.Util;
+using CSFCloud.WebSocket.Socket.Packets;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using System;
 
-namespace CSFWebSocket.Socket {
+namespace CSFCloud.WebSocket.Socket {
 
     internal class WSServer {
 

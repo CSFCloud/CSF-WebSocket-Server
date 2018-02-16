@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CSFWebSocket.Socket.WsPackets {
+namespace CSFCloud.WebSocket.Socket.WsPackets {
     internal class WsPacket {
 
         private static Random random = new Random();

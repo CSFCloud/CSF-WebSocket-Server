@@ -1,8 +1,8 @@
-﻿using CSFWebSocket.Socket.Headers;
-using CSFWebSocket.Socket.Packets;
-using CSFWebSocket.Socket.Packets.PacketDatas;
-using CSFWebSocket.Socket.WsPackets;
-using CSFWebSocket.Util;
+﻿using CSFCloud.WebSocket.Socket.Headers;
+using CSFCloud.WebSocket.Socket.Packets;
+using CSFCloud.WebSocket.Socket.Packets.PacketDatas;
+using CSFCloud.WebSocket.Socket.WsPackets;
+using CSFCloud.WebSocket.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace CSFWebSocket.Socket {
+namespace CSFCloud.WebSocket.Socket {
     public class Client {
 
         private static SortedSet<string> UsedSessions = new SortedSet<string>();

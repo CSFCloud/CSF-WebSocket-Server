@@ -1,10 +1,10 @@
-﻿using CSFWebSocket.Socket.Packets.PacketDatas;
-using CSFWebSocket.Util;
+﻿using CSFCloud.WebSocket.Socket.Packets.PacketDatas;
+using CSFCloud.WebSocket.Util;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 
-namespace CSFWebSocket.Socket.Packets {
+namespace CSFCloud.WebSocket.Socket.Packets {
 
     public class Packet {
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CSFWebSocket.Util {
+namespace CSFCloud.WebSocket.Util {
     internal static class Logger {
 
         private static LogLevel LastLogLevel = LogLevel.None;

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CSFWebSocket.Socket.Headers {
+namespace CSFCloud.WebSocket.Socket.Headers {
 
     class RequestHeader : HttpHeader {
 

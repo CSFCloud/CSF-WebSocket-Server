@@ -1,8 +1,8 @@
-﻿using CSFWebSocket.Socket;
-using CSFWebSocket.Socket.Packets;
+﻿using CSFCloud.WebSocket.Socket;
+using CSFCloud.WebSocket.Socket.Packets;
 using System;
 
-namespace CSFWebSocket.ServerEventArgs {
+namespace CSFCloud.WebSocket.ServerEventArgs {
     public class PacketReceivedEventArgs : EventArgs {
 
         public Packet Packet { get; }

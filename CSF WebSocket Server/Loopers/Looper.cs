@@ -1,10 +1,9 @@
-﻿using CSFWebSocket.Util;
+﻿using CSFCloud.WebSocket.Util;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CSFWebSocket.Loopers
-{
+namespace CSFCloud.WebSocket.Loopers {
     internal class Looper {
 
         private int initialWait;

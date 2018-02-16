@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace CSFWebSocket.Socket.Headers {
+namespace CSFCloud.WebSocket.Socket.Headers {
 
     internal abstract class HttpHeader {
 

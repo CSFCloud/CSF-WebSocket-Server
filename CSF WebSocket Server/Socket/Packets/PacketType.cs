@@ -1,4 +1,4 @@
-﻿namespace CSFWebSocket.Socket.Packets {
+﻿namespace CSFCloud.WebSocket.Socket.Packets {
 
     public enum PacketType {
 

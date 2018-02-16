@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CSFWebSocket.Util {
+namespace CSFCloud.WebSocket.Util {
     internal static class ServerTime {
 
         private static readonly DateTime UnixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);

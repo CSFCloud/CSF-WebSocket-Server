@@ -1,7 +1,7 @@
-﻿using CSFWebSocket.Socket;
+﻿using CSFCloud.WebSocket.Socket;
 using System;
 
-namespace CSFWebSocket.ServerEventArgs {
+namespace CSFCloud.WebSocket.ServerEventArgs {
 
     public class UserDosconnectEventArgs : EventArgs {
 

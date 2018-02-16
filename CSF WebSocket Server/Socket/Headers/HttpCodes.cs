@@ -1,4 +1,4 @@
-﻿namespace CSFWebSocket.Socket.Headers {
+﻿namespace CSFCloud.WebSocket.Socket.Headers {
     internal enum HttpCodes {
 
         Continue = 100,

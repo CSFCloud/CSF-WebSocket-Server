@@ -1,4 +1,4 @@
-﻿namespace CSFWebSocket.Socket.Packets.PacketDatas {
+﻿namespace CSFCloud.WebSocket.Socket.Packets.PacketDatas {
 
     public class Identity : PacketData {
 

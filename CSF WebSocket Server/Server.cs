@@ -1,9 +1,9 @@
-﻿using CSFWebSocket.ServerEventArgs;
-using CSFWebSocket.Socket;
-using CSFWebSocket.Socket.Packets;
+﻿using CSFCloud.WebSocket.ServerEventArgs;
+using CSFCloud.WebSocket.Socket;
+using CSFCloud.WebSocket.Socket.Packets;
 using System;
 
-namespace CSFWebSocket {
+namespace CSFCloud.WebSocket {
 
     public class Server {
 

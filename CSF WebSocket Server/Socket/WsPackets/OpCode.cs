@@ -1,4 +1,4 @@
-﻿namespace CSFWebSocket.Socket.WsPackets {
+﻿namespace CSFCloud.WebSocket.Socket.WsPackets {
 
     internal enum OpCode : byte {
 
