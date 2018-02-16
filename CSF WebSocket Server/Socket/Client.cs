@@ -109,7 +109,7 @@ namespace CSFCloud.WebSocket.Socket {
 
                 Logger.Info($"IP: {ip1} {ip2}");
 
-                if (ip_parts[0] != "172") {
+                if (ip_parts[0] != "172" && ip_parts[0] != "127") {
                     ResponseHeader respheader = new ResponseHeader {
                         responseCode = HttpCodes.OK
                     };
