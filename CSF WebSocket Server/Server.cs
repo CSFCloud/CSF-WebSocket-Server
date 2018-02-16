@@ -12,7 +12,7 @@ namespace CSFCloud.WebSocket {
         public event EventHandler<PacketReceivedEventArgs> OnPacketReceived;
         public event EventHandler<UserDosconnectEventArgs> OnUserDisconnect;
 
-        public Server(int port) {
+        public Server(int port = 80) {
             socket = new WSServer(port, EnvokeUserConnect, EnvokePacketReceived, EnvokeUserDisconnect);
         }
 
