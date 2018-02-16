@@ -2,6 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+	<PackageId>CSFCloud.WebSocket.Server</PackageId>
+	<Title>CSFCloud WebSocket Server</Title>
+	<Description>This is a WebSocket server used in the CSFCloud WebSocket hosting system.</Description>
+	<Version>0.1.0</Version>
+	<Authors>Bence Skorka</Authors>
+	<Company>CSFCloud</Company>
+	<PackageIconUrl>https://dashboard.csfcloud.com/img/logo.png</PackageIconUrl>
+	<RepositoryUrl>https://github.com/CSFCloud/CSF-WebSocket-Server</RepositoryUrl>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+  </ItemGroup>
 
 </Project>
