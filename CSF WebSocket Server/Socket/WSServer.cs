@@ -1,11 +1,10 @@
-﻿using CSFCloud.WebSocket.Loopers;
-using CSFCloud.WebSocket.Util;
-using CSFCloud.WebSocket.Socket.Packets;
+﻿using CSFCloud.WebSocket.Socket.Packets;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using System;
+using CSFCloud.Utils;
 
 namespace CSFCloud.WebSocket.Socket {
 

@@ -1,5 +1,5 @@
-﻿using CSFCloud.WebSocket.Socket.Packets.PacketDatas;
-using CSFCloud.WebSocket.Util;
+﻿using CSFCloud.Utils;
+using CSFCloud.WebSocket.Socket.Packets.PacketDatas;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;

@@ -5,7 +5,7 @@
 	<PackageId>CSFCloud.WebSocket.Server</PackageId>
 	<Title>CSFCloud WebSocket Server</Title>
 	<Description>This is a WebSocket server used in the CSFCloud WebSocket hosting system.</Description>
-	<Version>0.2.1</Version>
+	<Version>0.2.1-beta</Version>
 	<Authors>CSFCloud</Authors>
 	<Company>CSFCloud</Company>
 	<PackageIconUrl>https://dashboard.csfcloud.com/img/logo.png</PackageIconUrl>
@@ -13,6 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CSFCloud.Utils" Version="0.0.3" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>
 
