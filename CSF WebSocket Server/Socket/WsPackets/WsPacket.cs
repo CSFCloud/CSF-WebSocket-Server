@@ -45,7 +45,17 @@ namespace CSFCloud.WebSocket.Socket.WsPackets {
                 leng.Add((byte)(payload.Length / Math.Pow(2, 8)));
                 leng.Add((byte)(payload.Length % Math.Pow(2, 8)));
             } else {
-                throw new Exception("I was lazy, please send shorter messages. Thanks: The developer");
+                byte[] lengthbytes = new byte[8];
+
+                int l = payload.Length;
+                int mod = (int)Math.Pow(2, 8);
+
+                for (int i = 0; i < 8; i++) {
+                    lengthbytes[7 - i] = (byte)(l % mod);
+                    l /= mod;
+                }
+
+                leng.AddRange(lengthbytes);
             }
 
             return leng;
