@@ -28,11 +28,11 @@ namespace CSFCloud.WebSocket.Socket {
             server.Start();
             Logger.Info("Server started!");
 
-            Looper l1 = new Looper(0, 0);
+            Looper l1 = new Looper(1000, 100);
             l1.SetLoopFunction(Accept);
             loops.Add(l1);
 
-            Looper l2 = new Looper(0, 0);
+            Looper l2 = new Looper(100, 10);
             l2.SetLoopFunction(Listen);
             loops.Add(l2);
 
