@@ -100,6 +100,7 @@ namespace CSFCloud.WebSocket.Socket {
             string str = Encoding.UTF8.GetString(data);
             if (Regex.IsMatch(str, "^GET")) {
                 requestHeader = new RequestHeader(str);
+                requestHeader.resource = requestHeader.resource.Replace("requestHeader", "/csf-websocket-url");
                 Logger.Info($"Requesting resource: {requestHeader.resource}");
 
                 string ip1 = tcpclient.Client.RemoteEndPoint.ToString();
