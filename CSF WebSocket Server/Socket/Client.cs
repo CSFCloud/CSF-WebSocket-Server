@@ -139,9 +139,10 @@ namespace CSFCloud.WebSocket.Socket {
                     await SendHello();
                 } else {
                     ResponseHeader respheader = new ResponseHeader {
-                        responseCode = HttpCodes.BadRequest
+                        responseCode = HttpCodes.UpgradeRequired
                     };
                     await Send(respheader);
+                    await Send("This is not a website! Upgrade your connection to WebSocket");
                     stillOk = false;
                 }
             } else {
