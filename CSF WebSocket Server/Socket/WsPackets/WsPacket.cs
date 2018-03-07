@@ -122,7 +122,7 @@ namespace CSFCloud.WebSocket.Socket.WsPackets {
 
             for (int i = 0; i < lengthByteCount; i++) {
                 length = length << 8;
-                length += input[offset + lengthByteCount - 1 - i];
+                length += input[offset + i];
             }
 
             return length;
