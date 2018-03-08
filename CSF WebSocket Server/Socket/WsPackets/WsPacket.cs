@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSFCloud.Utils;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -24,30 +25,30 @@ namespace CSFCloud.WebSocket.Socket.WsPackets {
                 (byte)(128 + opcode)
             };
 
-            data.AddRange(CalculateSize());
+            byte[] payloadBytes = Encoding.UTF8.GetBytes(payload);
 
-            /*List<byte> key = GenerateXORKey();
-            data.AddRange(key);
-            data.AddRange(Encrypt(key));*/
+            data.AddRange(CalculateSize(payloadBytes.Length));
 
-            data.AddRange(Encoding.UTF8.GetBytes(payload));
+            data.AddRange(payloadBytes);
+
+            Logger.Debug(string.Join(" ", data));
 
             return data.ToArray();
         }
 
-        private List<byte> CalculateSize() {
+        private List<byte> CalculateSize(int size) {
             List<byte> leng = new List<byte>();
 
-            if (payload.Length <= 125) {
-                leng.Add((byte)(payload.Length));
-            } else if (payload.Length <= Math.Pow(2, 2 * 8)) {
+            if (size <= 125) {
+                leng.Add((byte)(size));
+            } else if (size <= Math.Pow(2, 2 * 8)) {
                 leng.Add((byte)(126));
-                leng.Add((byte)(payload.Length / Math.Pow(2, 8)));
-                leng.Add((byte)(payload.Length % Math.Pow(2, 8)));
+                leng.Add((byte)(size / Math.Pow(2, 8)));
+                leng.Add((byte)(size % Math.Pow(2, 8)));
             } else {
                 byte[] lengthbytes = new byte[8];
 
-                int l = payload.Length;
+                int l = size;
                 int mod = (int)Math.Pow(2, 8);
 
                 for (int i = 0; i < 8; i++) {
