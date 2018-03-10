@@ -5,7 +5,7 @@
 	<PackageId>CSFCloud.WebSocket.Server</PackageId>
 	<Title>CSFCloud WebSocket Server</Title>
 	<Description>This is a WebSocket server used in the CSFCloud WebSocket hosting system.</Description>
-	<Version>0.3.1</Version>
+	<Version>0.3.2.3-beta</Version>
 	<Authors>CSFCloud</Authors>
 	<Company>CSFCloud</Company>
 	<PackageIconUrl>https://dashboard.csfcloud.com/img/logo.png</PackageIconUrl>

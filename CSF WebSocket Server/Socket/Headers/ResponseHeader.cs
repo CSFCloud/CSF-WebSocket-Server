@@ -19,7 +19,13 @@ namespace CSFCloud.WebSocket.Socket.Headers {
         }
 
         protected override string SerializeStartLine() {
-            return protocol + " " + ((int)responseCode);
+            string line = protocol + " " + ((int)responseCode);
+
+            if (responseCode == HttpCodes.SwitchingProtocols) {
+                line += " Switching Protocols";
+            }
+
+            return line;
         }
     }
 }

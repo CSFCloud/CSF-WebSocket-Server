@@ -24,7 +24,11 @@ namespace CSFCloud.WebSocket.Socket.Headers {
                     string key = m.Groups[1].Value.Trim();
                     string value = m.Groups[2].Value.Trim();
 
-                    parameters[key] = value;
+                    if (parameters.ContainsKey(key)) {
+                        parameters[key] = parameters[key] + "|" + value;
+                    } else {
+                        parameters[key] = value;
+                    }
                 }
             }
         }

@@ -73,8 +73,20 @@ namespace CSFCloud.WebSocket.Socket {
                 } else {
                     await client.Stop();
                     Logger.Info($"Client dropped [{client.GetSessionId()}]");
-                    clientDisconnectCallback(client);
                     clients.RemoveAt(i);
+                    string sess = client.GetSessionId();
+
+                    bool onlyone = true;
+                    for (int j = clients.Count - 1; j >= 0; j--) {
+                        if (clients[j].GetSessionId() == sess) {
+                            onlyone = false;
+                            break;
+                        }
+                    }
+
+                    if (onlyone) {
+                        clientDisconnectCallback(client);
+                    }
                 }
             }
         }

@@ -2,6 +2,7 @@
 using CSFCloud.WebSocket.Socket.Headers;
 using CSFCloud.WebSocket.Socket.Packets;
 using CSFCloud.WebSocket.Socket.Packets.PacketDatas;
+using CSFCloud.WebSocket.Socket.StreamCoders;
 using CSFCloud.WebSocket.Socket.WsPackets;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace CSFCloud.WebSocket.Socket {
     public class Client {
@@ -18,6 +20,7 @@ namespace CSFCloud.WebSocket.Socket {
         private static SortedSet<string> UsedSessions = new SortedSet<string>();
         private static Random random = new Random();
         private TcpClient tcpclient;
+        private StreamCipher Chiper;
         private bool stillOk = true;
         private long lastHeartBeat;
         private string session;
@@ -76,7 +79,7 @@ namespace CSFCloud.WebSocket.Socket {
 
         private async Task Send(WsPacket packet) {
             NetworkStream stream = GetStream();
-            byte[] buffer = packet.Encode();
+            byte[] buffer = Chiper.Encode(packet);
             await stream.WriteAsync(buffer, 0, buffer.Length);
 
             Logger.Debug($"WebSocket Raw Packet sent!");
@@ -121,22 +124,38 @@ namespace CSFCloud.WebSocket.Socket {
                     ResponseHeader respheader = new ResponseHeader {
                         responseCode = HttpCodes.SwitchingProtocols
                     };
+                    respheader.parameters["Server"] = "CSF-Websocket";
                     respheader.parameters["Connection"] = "Upgrade";
                     respheader.parameters["Upgrade"] = "websocket";
                     respheader.parameters["Sec-WebSocket-Accept"] = GenerateSecWebSocketKey(requestHeader.parameters["Sec-WebSocket-Key"]);
-                    respheader.parameters["x-session-id"] = session;
-                    if (requestHeader.parameters.ContainsKey("Sec-WebSocket-Protocol")) {
-                        string[] options = requestHeader.parameters["Sec-WebSocket-Protocol"].Split(",");
-                        foreach (string option_raw in options) {
-                            string option = option_raw.Trim();
-                            if (option.Contains("csf-socket-")) {
-                                respheader.parameters["Sec-WebSocket-Protocol"] = option;
+
+                    try {
+                        if (requestHeader.parameters.ContainsKey("Sec-WebSocket-Extensions")) {
+                            Logger.Info($"Supported extensions: {requestHeader.parameters["Sec-WebSocket-Extensions"]}");
+                            Chiper = StreamCipher.Factory(requestHeader.parameters["Sec-WebSocket-Extensions"]);
+                        } else {
+                            Chiper = StreamCipher.Factory("permessage-deflate");
+                        }
+
+                        if (requestHeader.parameters.ContainsKey("Sec-WebSocket-Protocol")) {
+                            string[] options = requestHeader.parameters["Sec-WebSocket-Protocol"].Split(",");
+                            foreach (string option_raw in options) {
+                                string option = option_raw.Trim();
+                                if (option.Contains("csf-socket-")) {
+                                    respheader.parameters["Sec-WebSocket-Protocol"] = option;
+                                }
                             }
                         }
+                        await Send(respheader);
+                        await SendHello();
+                    } catch (UnsupportedExtension) {
+                        ResponseHeader invext = new ResponseHeader {
+                            responseCode = HttpCodes.NotAcceptable
+                        };
+                        await Send(invext);
+                        await Send("The requested websokcet extension is not supported");
+                        stillOk = false;
                     }
-                    await Send(respheader);
-
-                    await SendHello();
                 } else {
                     ResponseHeader respheader = new ResponseHeader {
                         responseCode = HttpCodes.UpgradeRequired
@@ -146,7 +165,7 @@ namespace CSFCloud.WebSocket.Socket {
                     stillOk = false;
                 }
             } else {
-                WsPacket WebSocketPacket = new WsPacket(data);
+                WsPacket WebSocketPacket = Chiper.Decode(data);
                 OpCode opcode = WebSocketPacket.GetOpCode();
                 if (opcode == OpCode.TextFrame) {
                     string pstr = WebSocketPacket.GetPayload();
