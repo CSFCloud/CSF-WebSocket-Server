@@ -31,12 +31,11 @@ namespace CSFCloud.WebSocket.Socket.Packets {
             data = jd["data"];
         }
 
-        public string Serialize(int seq) {
+        public string Serialize() {
             PacketContainer cont = new PacketContainer() {
                 type = (int)type,
                 data = data,
-                created = ServerTime.GetCurrentUnixTimestampMillis(),
-                s = seq
+                created = ServerTime.GetCurrentUnixTimestampMillis()
             };
 
             return JsonConvert.SerializeObject(cont);
@@ -54,7 +53,6 @@ namespace CSFCloud.WebSocket.Socket.Packets {
             public int type;
             public object data;
             public long created;
-            public int s;
         }
 
     }

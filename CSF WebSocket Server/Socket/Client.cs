@@ -18,13 +18,12 @@ namespace CSFCloud.WebSocket.Socket {
     public class Client {
 
         private static SortedSet<string> UsedSessions = new SortedSet<string>();
-        private static Random random = new Random();
+
         private TcpClient tcpclient;
         private StreamCipher Chiper;
         private bool stillOk = true;
         private long lastHeartBeat;
         private string session;
-        private int PacketSequence = 0;
         private Identity identity = null;
         private RequestHeader requestHeader;
         private int HeartBeatInterval = 0;
@@ -78,8 +77,7 @@ namespace CSFCloud.WebSocket.Socket {
         }
 
         public async Task Send(Packet packet) {
-            string str = packet.Serialize(PacketSequence);
-            PacketSequence++;
+            string str = packet.Serialize();
             WsPacket wspacket = new WsPacket(OpCode.TextFrame, str);
 
             Logger.Debug($"Sending packet: {str}");
@@ -256,6 +254,7 @@ namespace CSFCloud.WebSocket.Socket {
         private static string GenerateSessionId() {
             const int length = 32;
             const string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            Random random = new Random();
 
             string session;
             do {
