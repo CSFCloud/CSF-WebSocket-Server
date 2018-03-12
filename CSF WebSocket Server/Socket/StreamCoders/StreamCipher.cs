@@ -16,11 +16,11 @@ namespace CSFCloud.WebSocket.Socket.StreamCoders {
                 }
             }
 
-            foreach (string op in options) {
+            /*foreach (string op in options) {
                 if (op == "permessage-deflate") {
                     return new RCF6455();
                 }
-            }
+            }*/
 
             //throw new UnsupportedExtension();
             return new RCF6455();
