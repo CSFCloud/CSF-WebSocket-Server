@@ -3,7 +3,8 @@
     public class Hello : PacketData {
 
         public string session_id;
-        public int heartbeat_interval = 5 * 60 * 1000;
+        public int heartbeat_interval;
+        public int purge_timeout;
         public string message;
 
     }

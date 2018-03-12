@@ -27,6 +27,8 @@ namespace CSFCloud.WebSocket.Socket {
         private int PacketSequence = 0;
         private Identity identity = null;
         private RequestHeader requestHeader;
+        private int HeartBeatInterval = 0;
+        private int PurgeTimout = 0;
 
         public int Available {
             get {
@@ -34,7 +36,9 @@ namespace CSFCloud.WebSocket.Socket {
             }
         }
 
-        public Client(TcpClient tc) {
+        public Client(TcpClient tc, int hbi, int pti) {
+            HeartBeatInterval = hbi;
+            PurgeTimout = pti;
             this.session = GenerateSessionId();
             tcpclient = tc;
             HeartBeatNow();
@@ -52,7 +56,12 @@ namespace CSFCloud.WebSocket.Socket {
                 return false;
             }
             long currentTime = ServerTime.GetCurrentUnixTimestampMillis();
-            return (currentTime - lastHeartBeat) < 60 * 1000;
+            return (currentTime - lastHeartBeat) < PurgeTimout;
+        }
+
+        public bool IsReliable() {
+            long currentTime = ServerTime.GetCurrentUnixTimestampMillis();
+            return (currentTime - lastHeartBeat) < HeartBeatInterval;
         }
 
         private async Task Send(HttpHeader head) {
@@ -217,7 +226,9 @@ namespace CSFCloud.WebSocket.Socket {
         private async Task SendHello() {
             Packet p = new Packet(PacketType.Hello, new Hello() {
                 session_id = session,
-                message = "I'm not a teapot"
+                message = "I'm not a teapot",
+                heartbeat_interval = HeartBeatInterval,
+                purge_timeout = PurgeTimout
             });
             await Send(p);
         }
